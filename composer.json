@@ -1,0 +1,23 @@
+{
+    "name": "codelake/template-flow",
+    "description": "A simple and extendable templating engine.",
+    "type": "library",
+    "license": "Unlicense",
+    "authors": [
+        {
+            "name": "Jörn Neumeyer",
+            "email": "neumeyer@code-lake.com"
+        }
+    ],
+    "require": {
+        "league/pipeline": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeLake\\TemplateFlow\\": "src/"
+        }
+    }
+}
