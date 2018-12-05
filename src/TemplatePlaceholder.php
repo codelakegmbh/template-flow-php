@@ -77,7 +77,12 @@
           $pipe_name = $pipe_matches[1];
           $parameter_string = substr($pipe_matches[2], 1, -1);
           $parameters = preg_split(self::PIPE_SEPARATOR_REGEX, $parameter_string);
-          $pipe_function = TemplatingEngine::pipe_fetch($pipe_name)(...$parameters);
+
+          try {
+            $pipe_function = TemplatingEngine::pipe_fetch($pipe_name)(...$parameters);
+          } catch (\TypeError $e) {
+            throw new InvalidPipeParameterException("Invalid arguments for pipe '{$pipe_name}'!", -1, $e);
+          }
         } else {
           $pipe_function = TemplatingEngine::pipe_fetch($pipe_name);
         }

@@ -2,6 +2,7 @@
 
   namespace Tests\Unit;
 
+  use CodeLake\TemplateFlow\InvalidPipeParameterException;
   use CodeLake\TemplateFlow\TemplatePlaceholder;
   use CodeLake\TemplateFlow\TemplatingEngine;
   use CodeLake\TemplateFlow\UnknownPipeException;
@@ -37,6 +38,11 @@
       new TemplatePlaceholder('{{name|wrehbeagthjrwsaerzt}}');
     }
 
+    function testThrowsExceptionOnInvalidParameterizedPipeCall() {
+      $this->expectException(InvalidPipeParameterException::class);
+      new TemplatePlaceholder('{{name|shorten(a)}}');
+    }
+
     function testProperlyAppliesDefinedPipes() {
       $placeholder = new TemplatePlaceholder('{{name|capitalize}}');
       $result = $placeholder->process('john');
@@ -62,7 +68,7 @@
     }
 
     function testProperlyPassesMultipleParametersToParameterizedPipe() {
-      $placeholder = new TemplatePlaceholder('{{name|link(web|DuckDuckGo)}}');
+      $placeholder = new TemplatePlaceholder('{{name|link(DuckDuckGo|web)}}');
       $result = $placeholder->process('www.duckduckgo.com');
       $this->assertEquals('<a href="www.duckduckgo.com">DuckDuckGo</a>', $result);
     }
