@@ -107,6 +107,10 @@
      * @return mixed
      */
     function process($value) {
-      return $this->pipe->process($value);
+      $processed = $this->pipe->process($value);
+      if ($processed instanceof RawOutput) {
+        return (string)$processed;
+      }
+      return htmlspecialchars($processed);
     }
   }
