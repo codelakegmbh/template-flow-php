@@ -66,4 +66,16 @@
       $result = $placeholder->process('www.duckduckgo.com');
       $this->assertEquals('<a href="www.duckduckgo.com">DuckDuckGo</a>', $result);
     }
+
+    function testEscapesHtml() {
+      $placeholder = new TemplatePlaceholder('{{name}}');
+      $result = $placeholder->process('<b>moin');
+      $this->assertEquals('&lt;b&gt;moin', $result);
+    }
+
+    function testDoesNotEscapeRawValues() {
+      $placeholder = new TemplatePlaceholder('{{name|raw}}');
+      $result = $placeholder->process('<b>moin');
+      $this->assertEquals('<b>moin', $result);
+    }
   }
