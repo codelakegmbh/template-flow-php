@@ -7,7 +7,7 @@
       return ucfirst($value);
     }
 
-    static function link(string $type, string $display): \Closure {
+    static function link(string $display, string $type = 'web'): \Closure {
       return function (string $value) use ($type, $display) {
         $link = '';
         switch ($type) {

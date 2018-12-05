@@ -14,17 +14,17 @@
 
   class TemplatePipesTest extends TestCase {
     function testLinkCanProduceWebLinks() {
-      $link = TemplatePipes::link('web', 'test')('test.com');
+      $link = TemplatePipes::link('test')('test.com');
       $this->assertEquals('<a href="test.com">test</a>', $link);
     }
 
     function testLinkCanProduceMailToLinks() {
-      $link = TemplatePipes::link('mail', 'test')('test@test.com');
+      $link = TemplatePipes::link('test', 'mail')('test@test.com');
       $this->assertEquals('<a href="mailto:test@test.com">test</a>', $link);
     }
 
     function testLinkThrowsOnInvalidEmailInEmailLink() {
       $this->expectException(\InvalidArgumentException::class);
-      TemplatePipes::link('mail', 'test')('test.com');
+      TemplatePipes::link('test', 'mail')('test.com');
     }
   }
