@@ -84,7 +84,7 @@ $result = $engine->render();
 // produces anchor '<a href="mailto:support@example.com">Support</a>'
 ```
 ### lower
-Lowers all characters in the string.
+Transforms all characters in a string to lower case.
 ### raw
 Returns a ``RawOutput`` instance, so the pipeline result will not be escaped.
 ### shorten
@@ -99,3 +99,11 @@ $engine->set_data(['name' => 'Johnny']);
 $result = $engine->render();
 // produces 'Welcome John.'
 ```
+### trim
+Removes all whitespace characters from the left and right side of a string.
+### trim_left
+Removes all whitespace characters from the left side of a string.
+### trim_right
+Removes all whitespace characters from the right side of a string.
+### upper
+Transforms all characters in a string to upper case.
