@@ -2,8 +2,6 @@
 
   namespace CodeLake\TemplateFlow;
 
-  use function Couchbase\defaultDecoder;
-
   final class TemplatePipes {
     static function capitalize(string $value): string {
       return ucfirst($value);
@@ -11,19 +9,30 @@
 
     static function link(string $type, string $display): \Closure {
       return function (string $value) use ($type, $display) {
+        $link = '';
         switch ($type) {
           case 'mail':
-            return '<a href="mailto:'.$value.'">'.$display.'</a>';
+            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+              throw new \InvalidArgumentException("The email '{$value}' is invalid!");
+            }
+            $link = '<a href="mailto:' . $value . '">' . $display . '</a>';
+            break;
           case 'web':
-            return '<a href="'.$value.'">'.$display.'</a>';
+            $link = '<a href="' . $value . '">' . $display . '</a>';
+            break;
           default:
             throw new \InvalidArgumentException("Unknown/unsupported link type '{$type}'!");
         }
+        return new RawOutput($link);
       };
     }
 
     static function lower(string $value): string {
       return strtolower($value);
+    }
+
+    static function raw(string $value): RawOutput {
+      return new RawOutput($value);
     }
 
     static function shorten(int $length): \Closure {
