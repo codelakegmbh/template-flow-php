@@ -1,6 +1,7 @@
 {
     "name": "codelake/template-flow",
     "description": "A simple and extendable templating engine.",
+    "version": "0.1.0",
     "type": "library",
     "license": "Unlicense",
     "authors": [
