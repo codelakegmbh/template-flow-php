@@ -86,7 +86,8 @@ $result = $engine->render();
 ### lower
 Transforms all characters in a string to lower case.
 ### raw
-Returns a ``RawOutput`` instance, so the pipeline result will not be escaped.
+Returns a ``RawOutput`` instance, so the pipeline result will not be escaped.  
+**NOTE** This pipe has to be the last one in the chain. Otherwise the output will be escaped as usual.
 ### shorten
 Cuts off the remaining characters of the pipeline string
 after the n-th character.
