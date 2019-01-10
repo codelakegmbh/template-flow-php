@@ -83,6 +83,29 @@ TemplatingEngine::pipes_register_class(MyPipes::class);
 // all static methods of the class 'MyPipes' are now available as pipes
 ```
 
+### Removing Pipes
+In case you want to unregister/remove pipes, you can easily unregister the corresponding class.
+This will prevent TemplateFlow from creating new ```TemplatePipe```s with the class' methods.
+Existing ```TemplatePipe```s will still work as they already loaded the methods.
+
+```php
+use CodeLake\TemplateFlow\TemplatingEngine;
+
+class MyPipes {
+  /**
+   * Returns the last character of a string.
+   */
+  static function last(string $value): string {
+    return substr($value, -1);
+  }
+}
+
+TemplatingEngine::pipes_register_class(MyPipes::class);
+// all static methods of the class 'MyPipes' are now available as pipes
+TemplatingEngine::pipes_unregister_class(MyPipes::class);
+// the pipes are now unavailable for new pipelines
+```
+
 ### Predefined Pipes
 In order to use predefined pipes, you first have to add it to the engine.
 ```php
