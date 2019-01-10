@@ -5,7 +5,7 @@
   class TemplatingEngine {
     protected $template;
     protected $data = [];
-    protected static $pipe_classes = [TemplatePipes::class];
+    protected static $pipe_classes = [];
 
     /**
      * Fetches the first match of the requested pipe function.
