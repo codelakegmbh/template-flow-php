@@ -59,11 +59,13 @@ $result = $engine->render();
 
 ### Adding Pipes
 Pipes are just functions in a ```class```.
-Therefore, if you want to add your own pipes to TemplateFlow, you just have to create a new ```class``` with the desired pipes as methods on it.
+Therefore, if you want to add your own pipes to TemplateFlow, you just have to create a new ```class``` with the desired pipes as static methods on it.
 
 It is recommended to use snake_case with lower case characters only, to guarantee easy to read pipes and prevent errors due to typos.
 
 **NOTE** Since PHP is case insensitive in regard to function names, the use of camelCase and PascalCase are discouraged.
+
+**NOTE** TemplateFlow will always try to execute discovered pipes (methods) in a static context. So, declaring a pipe as a normal method will lead to an exception.
 
 ```php
 use CodeLake\TemplateFlow\TemplatingEngine;
@@ -77,9 +79,7 @@ class MyPipes {
   }
 }
 
-$engine = new TemplatingEngine();
-
-$engine->pipes_register_class(MyPipes::class);
+TemplatingEngine::pipes_register_class(MyPipes::class);
 // all static methods of the class 'MyPipes' are now available as pipes
 ```
 
@@ -87,10 +87,9 @@ $engine->pipes_register_class(MyPipes::class);
 In order to use predefined pipes, you first have to add it to the engine.
 ```php
 use CodeLake\TemplateFlow\TemplatingEngine;
+use CodeLake\TemplateFlow\TemplatePipes;
 
-$engine = new TemplatingEngine();
-
-$engine->pipes_register_class(CodeLake\TemplateFlow\TemplatePipes::class);
+TemplatingEngine::pipes_register_class(TemplatePipes::class);
 ```
 
 #### capitalize
