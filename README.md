@@ -57,8 +57,38 @@ $result = $engine->render();
 // produces anchor '<a href="www.example-survey.com">Survey</a>'
 ```
 
+### Adding Pipes
+Pipes are just functions in a ```class```.
+Therefore, if you want to add your own pipes to TemplateFlow, you just have to create a new ```class``` with the desired pipes as methods on it.
+
+```php
+use CodeLake\TemplateFlow\TemplatingEngine;
+
+class MyPipes {
+  /**
+   * Returns the last character of a string.
+   */
+  static function last(string $value): string {
+    return subsctr($value, -1);
+  }
+}
+
+$engine = new TemplatingEngine();
+
+$engine->pipes_register_class(MyPipes::class);
+// all static methods of the class 'MyPipes' are now available as pipes
+```
 
 ### Predefined Pipes
+In order to use predefined pipes, you first have to add it to the engine.
+```php
+use CodeLake\TemplateFlow\TemplatingEngine;
+
+$engine = new TemplatingEngine();
+
+$engine->pipes_register_class(CodeLake\TemplateFlow\TemplatePipes::class);
+```
+
 #### capitalize
 Mutates the first character of a string to upper case.
 #### link
