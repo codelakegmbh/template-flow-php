@@ -10,9 +10,18 @@
 
 
   use CodeLake\TemplateFlow\TemplatePipes;
+  use CodeLake\TemplateFlow\TemplatingEngine;
   use PHPUnit\Framework\TestCase;
 
   class TemplatePipesTest extends TestCase {
+    static function setUpBeforeClass() {
+      TemplatingEngine::pipes_register_class(TemplatePipes::class);
+    }
+
+    static function tearDownAfterClass() {
+      TemplatingEngine::pipes_unregister_class(TemplatePipes::class);
+    }
+
     function testLinkCanProduceWebLinks() {
       $link = TemplatePipes::link('test')('test.com');
       $this->assertEquals('<a href="test.com">test</a>', $link);

@@ -5,9 +5,18 @@
   use CodeLake\TemplateFlow\InvalidPipeParameterException;
   use CodeLake\TemplateFlow\TemplatePlaceholder;
   use CodeLake\TemplateFlow\TemplatingEngine;
+  use CodeLake\TemplateFlow\TemplatePipes;
   use CodeLake\TemplateFlow\UnknownPipeException;
 
   class TemplatePlaceholderTest extends \PHPUnit\Framework\TestCase {
+    static function setUpBeforeClass() {
+      TemplatingEngine::pipes_register_class(TemplatePipes::class);
+    }
+
+    static function tearDownAfterClass() {
+      TemplatingEngine::pipes_unregister_class(TemplatePipes::class);
+    }
+    
     function testThrowsOnInvalidPlaceholderString() {
       $this->expectException(\InvalidArgumentException::class);
       new TemplatePlaceholder('moin');

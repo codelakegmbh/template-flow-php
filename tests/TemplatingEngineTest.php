@@ -6,6 +6,14 @@
   use PHPUnit\Framework\TestCase;
 
   class TemplatingEngineTest extends TestCase {
+    static function setUpBeforeClass() {
+      TemplatingEngine::pipes_register_class(CodeLake\TemplateFlow\TemplatePipes::class);
+    }
+
+    static function tearDownAfterClass() {
+      TemplatingEngine::pipes_unregister_class(CodeLake\TemplateFlow\TemplatePipes::class);
+    }
+
     /**
      * A basic test example.
      *
