@@ -55,7 +55,10 @@
      * @param string $class_name
      */
     public static function pipes_unregister_class(string $class_name) {
-      unset(self::$pipe_classes[$class_name]);
+      $index = array_search($class_name, self::$pipe_classes);
+      if ($index !== false) {
+        unset(self::$pipe_classes[$index]);
+      }
     }
 
     /**

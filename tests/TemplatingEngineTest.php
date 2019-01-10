@@ -3,15 +3,16 @@
   namespace Tests\Unit;
 
   use CodeLake\TemplateFlow\TemplatingEngine;
+  use CodeLake\TemplateFlow\TemplatePipes;
   use PHPUnit\Framework\TestCase;
 
   class TemplatingEngineTest extends TestCase {
     static function setUpBeforeClass() {
-      TemplatingEngine::pipes_register_class(CodeLake\TemplateFlow\TemplatePipes::class);
+      TemplatingEngine::pipes_register_class(TemplatePipes::class);
     }
 
     static function tearDownAfterClass() {
-      TemplatingEngine::pipes_unregister_class(CodeLake\TemplateFlow\TemplatePipes::class);
+      TemplatingEngine::pipes_unregister_class(TemplatePipes::class);
     }
 
     /**
@@ -76,5 +77,12 @@
       $pipe_function = TemplatingEngine::pipe_fetch('first_only');
       $this->assertTrue(is_callable($pipe_function));
       TemplatingEngine::pipes_unregister_class($class_name);
+    }
+
+    function testProperlyRemovesPipeClass() {
+      TemplatingEngine::pipes_unregister_class(TemplatePipes::class);
+      $pipe_function = TemplatingEngine::pipe_fetch('upper');
+      TemplatingEngine::pipes_register_class(TemplatePipes::class);
+      $this->assertNull($pipe_function);
     }
   }
