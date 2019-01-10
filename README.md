@@ -61,6 +61,10 @@ $result = $engine->render();
 Pipes are just functions in a ```class```.
 Therefore, if you want to add your own pipes to TemplateFlow, you just have to create a new ```class``` with the desired pipes as methods on it.
 
+It is recommended to use snake_case with lower case characters only, to guarantee easy to read pipes and prevent errors due to typos.
+
+**NOTE** Since PHP is case insensitive in regard to function names, the use of camelCase and PascalCase are discouraged.
+
 ```php
 use CodeLake\TemplateFlow\TemplatingEngine;
 
