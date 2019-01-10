@@ -69,7 +69,7 @@ class MyPipes {
    * Returns the last character of a string.
    */
   static function last(string $value): string {
-    return subsctr($value, -1);
+    return substr($value, -1);
   }
 }
 
